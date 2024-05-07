@@ -2,7 +2,7 @@
     Mega Bezel - Creates a graphic treatment for the game play area to give a retro feel
     Copyright (C) 2019-2023 HyperspaceMadness - HyperspaceMadness@outlook.com
 
-    Incorporates much great feedback from the libretro forum, and thanks 
+    Incorporates much great feedback from the libretro forum, and thanks
     to Hunterk who helped me get started
 
     See more at the libretro forum
@@ -37,7 +37,7 @@ float CURVATURE_MODE_3D_2 = 4;
 float CURVATURE_MODE_3D_CYLINDER = 5;
 
 float HSM_GetAspectRatioFromMode(float in_aspect_ratio_mode, float in_explicit_aspect)
-{                                                  
+{
 	float out_explicit_aspect = in_explicit_aspect;
 
 	if (in_aspect_ratio_mode == TEXTURE_ASPECT_MODE_VIEWPORT)
@@ -93,7 +93,7 @@ vec2 HSM_RotateCoordinate(vec2 in_coord, float rotation)
 {
 	if (rotation == 0)
 		return in_coord;
-	
+
 	float abs_rotation = abs(rotation);
 	vec2 ctr_coord = in_coord - 0.5;
 
@@ -115,15 +115,15 @@ vec4 HSM_GetTexSampleFromSampleStartAndSize(sampler2D in_sampler, vec2 in_screen
 	if ( HSM_DUALSCREEN_MODE > 0 )
 		if (HSM_FLIP_CORE_VERTICAL == -1)
 			in_screen_coord.y = 1 - in_screen_coord.y;
-			
+
 		// in_screen_coord.y = abs(HSM_FLIP_CORE_VERTICAL) * (1 - in_screen_coord.y) + (1 - abs(HSM_FLIP_CORE_VERTICAL)) * in_screen_coord.y;
 		// in_screen_coord.y = HSM_FLIP_CORE_VERTICAL * (in_screen_coord.y - 0.5) + 0.5;
-		
+
 	vec2 px_coord = SAMPLE_AREA_START_PIXEL_COORD + in_screen_coord * window_size;
 
 	vec2 sample_coord = px_coord / core_prepped_size;
 	sample_coord =  HSM_RotateCoordinate(sample_coord, HSM_ROTATE_CORE_IMAGE);
-	
+
 	vec4 out_color = texture(in_sampler, sample_coord);
 
 	return out_color;
@@ -131,7 +131,7 @@ vec4 HSM_GetTexSampleFromSampleStartAndSize(sampler2D in_sampler, vec2 in_screen
 
 // Applies the position before scaling from the center
 // Should allow having an image where the center of the tube in the graphic is off center
-// the position offset moves it so the screen is centered, then the graphic is scaled from the center 
+// the position offset moves it so the screen is centered, then the graphic is scaled from the center
 vec2 HSM_AddPosScaleToCoord(vec2 in_base_coord, vec2 in_pos, vec2 in_scale)
 {
 	vec2 positioned_coord = in_base_coord + in_pos;
@@ -164,7 +164,7 @@ vec2 GetSimpleScaledCoord(vec2 in_viewport_coord, vec2 in_viewport_unscaled_coor
 	}
 
 	coord_ctr.x = in_mirror_horz == 1 ? -1 * coord_ctr.x : coord_ctr.x;
-	
+
 	in_viewport_coord = HSM_RotateCoordinate(in_viewport_coord, in_rotate);
 
 	vec2 tex_size = textureSize(in_sampler, 0);
@@ -220,12 +220,12 @@ vec2 HSM_GetScreenPositionOffset(vec2 placement_image_pos, vec2 screen_scale, fl
 
 float HSM_GetAverageLuma(sampler2D Source, vec2 SourceSize)
 {
-   //////// Calculate Average Luminance ////////// 
+   //////// Calculate Average Luminance //////////
    float m = max(log2(global.SourceSize.x), log2(global.SourceSize.y));
 	m = max(m - 1.0, 1.0);
-	
+
 	float luma_total = 0.0;
-	
+
 	float num_samples = 5;
 	float sample_dist = 1 / (num_samples - 1);
 	vec4 tex_sample = vec4(0);
@@ -396,7 +396,7 @@ vec2 HSM_GetGuestCurvedCoord(vec2 in_coord, vec2 in_curvature, float in_curvatur
 	float warpY = in_curvature.y;
 	float c_shape = in_curvature_shape;
 
-	pos  = pos*2.0-1.0;    
+	pos  = pos*2.0-1.0;
 	pos  = mix(pos, vec2(pos.x*inversesqrt(1.0-c_shape*pos.y*pos.y), pos.y*inversesqrt(1.0-c_shape*pos.x*pos.x)), vec2(warpX, warpY)/c_shape);
 	return pos*0.5 + 0.5;
 }
@@ -453,7 +453,7 @@ vec2 HSM_GetCurvedCoord(vec2 in_coord, float curvature_multiplier, float screen_
 {
 	if (HSM_CURVATURE_MODE == CURVATURE_MODE_OFF)
 		return in_coord;
-	
+
 	float epsilon = 0.002;
 
 	vec2 adjusted_coord = in_coord;
@@ -480,8 +480,8 @@ vec2 HSM_GetCurvedCoord(vec2 in_coord, float curvature_multiplier, float screen_
 
 			float geom_mode = HSM_CURVATURE_MODE - 2;
 
-			curved_coord = HRG_GetGeomCurvedCoord(	adjusted_coord, 
-													geom_mode, 
+			curved_coord = HRG_GetGeomCurvedCoord(	adjusted_coord,
+													geom_mode,
 													geom_radius_with_mult,
 													HSM_CURVATURE_3D_VIEW_DIST,
 													tilt_angle_x,
@@ -507,9 +507,9 @@ vec2 HSM_GetCurvedCoord(vec2 in_coord, float curvature_multiplier, float screen_
 }
 
 vec2 HSM_GetCRTShaderCurvedCoord(vec2 in_coord)
-{	
+{
 	vec2 out_coord = HSM_GetCurvedCoord(in_coord, 1, SCREEN_ASPECT);
-	
+
 	if (HHLP_IsOutsideCoordSpace(out_coord))
 	{
 		vec2 tube_scale_ratio = TUBE_SCALE / SCREEN_SCALE;
@@ -522,7 +522,7 @@ vec2 HSM_GetCRTShaderCurvedCoord(vec2 in_coord)
 }
 
 vec2 HSM_GetMirrorWrappedCoord(vec2 in_coord)
-{	
+{
 	vec2 ctr_coord = in_coord - 0.5;
 	if (abs(ctr_coord.x) > 0.5 || abs(ctr_coord.y) > 0.5 )
 		in_coord = ctr_coord / HSM_SCREEN_REFLECTION_SCALE + 0.5 + vec2(HSM_SCREEN_REFLECTION_POS_X, HSM_SCREEN_REFLECTION_POS_Y);
@@ -545,11 +545,11 @@ vec2 HSM_GetMirrorWrapCoord(vec2 in_coord)
 	vec2 ctr_mirror_coord = vec2(0,0);
 
 	float x_is_outside = clamp((clamp(abs(ctr_coord.x), 0.5, 1) - 0.5) * 100000, 0, 1);
-	ctr_mirror_coord.x = (1 - x_is_outside) * ctr_coord.x + 
+	ctr_mirror_coord.x = (1 - x_is_outside) * ctr_coord.x +
 						x_is_outside * (ctr_coord.x - 2 * sign(ctr_coord.x) * (abs(ctr_coord.x) - 0.5));
 
 	float y_is_outside = clamp((clamp(abs(ctr_coord.y), 0.5, 1) - 0.5) * 100000, 0, 1);
-	ctr_mirror_coord.y = (1 - y_is_outside) * ctr_coord.y + 
+	ctr_mirror_coord.y = (1 - y_is_outside) * ctr_coord.y +
 						y_is_outside * (ctr_coord.y - 2 * sign(ctr_coord.y) * (abs(ctr_coord.y) - 0.5));
 
 	return ctr_mirror_coord + 0.5;
@@ -579,7 +579,7 @@ float HSM_GetCornerMask(vec2 in_coord, float screen_aspect, float corner_radius,
 // 	crn = (csize == 0.0) ? max(pos.x, pos.y) : pow(crn, 1.0/csize1);
 // 	pos = max(pos, crn);
 // 	vec2 res = (bsize1 == 0.0) ? 1.0.xx : mix(0.0.xx, 1.0.xx, smoothstep(1.0.xx, 1.0.xx-b, sqrt(pos)));
-// 	res = pow(res, sborder.xx);	
+// 	res = pow(res, sborder.xx);
 // 	return sqrt(res.x*res.y);
 // }
 
@@ -644,7 +644,7 @@ vec4 HSM_GetStoichaicBlurredSample(sampler2D in_sampler, vec2 in_coord, float nu
 	// srand
 	float radius = sin(dot(in_coord, vec2(1233.224, 1743.335)));
 	vec2 radius_vector;
-	
+
 	vec2 sample_coord = vec2(0);
 
 	// The following are all unrolled otherwise they won't compile in D3D11
@@ -754,7 +754,7 @@ bool HSM_GetIsInABCompareArea(vec2 viewport_coord)
 {
 	float test_value = HSM_AB_COMPARE_AREA > 1.5 ? viewport_coord.y : viewport_coord.x;
 	float position = mod(HSM_AB_COMPARE_AREA, 2) == 1 ? (1 - HSM_AB_COMPARE_SPLIT_POSITION) : HSM_AB_COMPARE_SPLIT_POSITION;
-	return  mod(HSM_AB_COMPARE_AREA, 2) == 0 && test_value < position || 
+	return  mod(HSM_AB_COMPARE_AREA, 2) == 0 && test_value < position ||
 			mod(HSM_AB_COMPARE_AREA, 2) == 1 && test_value > position;
 }
 
@@ -852,16 +852,16 @@ vec3 HSM_GetNightLightingMultiplyColor( vec2 in_coord, float hue, float saturati
 	return out_color;
 }
 
-bool HSM_Fill_Nightlight_Images(vec2 in_viewport_coord, 
-								vec2 in_viewport_unscaled_coord, 
-								vec2 in_tube_coord, 
-								vec2 in_tube_scale, 
+bool HSM_Fill_Nightlight_Images(vec2 in_viewport_coord,
+								vec2 in_viewport_unscaled_coord,
+								vec2 in_tube_coord,
+								vec2 in_tube_scale,
 								float nightlight1_opacity,
 								float nightlight2_opacity,
-								float in_swap_images, 
-								in sampler2D in_ambient_sampler, 
-								in sampler2D in_ambient2_sampler, 
-								inout vec3 nightlight1_rgb, 
+								float in_swap_images,
+								in sampler2D in_ambient_sampler,
+								in sampler2D in_ambient2_sampler,
+								inout vec3 nightlight1_rgb,
 								inout vec3 nightlight2_rgb)
 {
 		nightlight1_rgb = vec3(1);
@@ -873,15 +873,15 @@ bool HSM_Fill_Nightlight_Images(vec2 in_viewport_coord,
 			if (HSM_NIGHTLIGHT1_SCALE_INHERIT_MODE == 1 && HSM_NIGHTLIGHT1_SCALE * HSM_VIEWPORT_ZOOM < 1)
 				ambient1_scale = 1 / HSM_VIEWPORT_ZOOM;
 
-			vec2 lighting_coord = GetSimpleScaledCoord(in_viewport_coord, 
+			vec2 lighting_coord = GetSimpleScaledCoord(in_viewport_coord,
 															in_viewport_unscaled_coord,
 															in_tube_coord,
 															in_tube_scale,
 															in_ambient_sampler,
 															vec2(HSM_NIGHTLIGHT1_POSITION_X, HSM_NIGHTLIGHT1_POSITION_Y),
-															HSM_NIGHTLIGHT1_POS_INHERIT_MODE, 
-															vec2(ambient1_scale * HSM_NIGHTLIGHT1_SCALE_X, ambient1_scale), 
-															HSM_NIGHTLIGHT1_SCALE_INHERIT_MODE, 
+															HSM_NIGHTLIGHT1_POS_INHERIT_MODE,
+															vec2(ambient1_scale * HSM_NIGHTLIGHT1_SCALE_X, ambient1_scale),
+															HSM_NIGHTLIGHT1_SCALE_INHERIT_MODE,
 															HSM_NIGHTLIGHT1_SCALE_KEEP_ASPECT,
 															HSM_NIGHTLIGHT1_MIRROR_HORZ,
 															HSM_NIGHTLIGHT1_ROTATE );
@@ -901,15 +901,15 @@ bool HSM_Fill_Nightlight_Images(vec2 in_viewport_coord,
 			if (HSM_NIGHTLIGHT2_SCALE_INHERIT_MODE == 1 && HSM_NIGHTLIGHT2_SCALE * HSM_VIEWPORT_ZOOM < 1)
 				ambient2_scale = 1 / HSM_VIEWPORT_ZOOM;
 
-			vec2 lighting2_coord = GetSimpleScaledCoord(in_viewport_coord, 
+			vec2 lighting2_coord = GetSimpleScaledCoord(in_viewport_coord,
 															in_viewport_unscaled_coord,
 															in_tube_coord,
 															in_tube_scale,
 															in_ambient2_sampler,
 															vec2(HSM_NIGHTLIGHT2_POSITION_X, HSM_NIGHTLIGHT2_POSITION_Y),
-															HSM_NIGHTLIGHT2_POS_INHERIT_MODE, 
-															vec2(ambient2_scale * HSM_NIGHTLIGHT2_SCALE_X, ambient2_scale), 
-															HSM_NIGHTLIGHT2_SCALE_INHERIT_MODE, 
+															HSM_NIGHTLIGHT2_POS_INHERIT_MODE,
+															vec2(ambient2_scale * HSM_NIGHTLIGHT2_SCALE_X, ambient2_scale),
+															HSM_NIGHTLIGHT2_SCALE_INHERIT_MODE,
 															HSM_NIGHTLIGHT2_SCALE_KEEP_ASPECT,
 															HSM_NIGHTLIGHT2_MIRROR_HORZ,
 															HSM_NIGHTLIGHT2_ROTATE );
@@ -933,7 +933,7 @@ bool HSM_Fill_Nightlight_Images(vec2 in_viewport_coord,
 	return true;
 }
 
-vec3 ApplyNightlights(vec3 base_image, vec3 nightlight1_rgb, vec3 nightlight2_rgb, float blend_ambient, float blend_ambient2, float apply_in_add_mode, float layer_blend_mode, float swap_images) 
+vec3 ApplyNightlights(vec3 base_image, vec3 nightlight1_rgb, vec3 nightlight2_rgb, float blend_ambient, float blend_ambient2, float apply_in_add_mode, float layer_blend_mode, float swap_images)
 {
 	vec3 out_color = base_image;
 
@@ -993,7 +993,7 @@ float HSM_GetTubeOpacity()
 	return HSM_TUBE_DIFFUSE_MODE < 1.5 ? HSM_TUBE_OPACITY : 0;
 }
 
-vec3 HSM_ApplyAmbient(vec3 base_image, vec3 nightlight_rgb, float layer_blend_amount) 
+vec3 HSM_ApplyAmbient(vec3 base_image, vec3 nightlight_rgb, float layer_blend_amount)
 {
 	if (layer_blend_amount > 0)
 		return (1 - layer_blend_amount) * base_image.rgb + layer_blend_amount * base_image.rgb * nightlight_rgb.rgb;
@@ -1010,7 +1010,7 @@ bool HSM_GetUseFakeScanlines()
 float HSM_GetNoScanlineMode()
 {
 	// If Use Fake Scanlines is On then turn off Guest Scanlines as they will just look bad
-	float scan_res = (1 - USE_VERTICAL_SCANLINES) * CROPPED_ROTATED_SIZE_WITH_RES_MULT.y + 
+	float scan_res = (1 - USE_VERTICAL_SCANLINES) * CROPPED_ROTATED_SIZE_WITH_RES_MULT.y +
 						USE_VERTICAL_SCANLINES *  CROPPED_ROTATED_SIZE_WITH_RES_MULT.x;
 
 	return global.no_scanlines > 0.5 || HSM_GetUseFakeScanlines() || HSM_INTERLACE_MODE < 0 && HSM_INTERLACE_TRIGGER_RES <= scan_res ? 1 : 0;
@@ -1025,7 +1025,7 @@ vec4 HSM_ApplyScanlineMask(vec4 in_color, vec2 screen_scale, vec2 in_coord, vec2
 	in_coord = mix(in_coord, in_screen_curved_coord, HSM_FAKE_SCANLINE_CURVATURE);
 
     /* Scanlines */
-	float scanline_roll_offset = float(mod(global.FrameCount, 1280)) / 1280 * HSM_FAKE_SCANLINE_ROLL; 
+	float scanline_roll_offset = float(mod(global.FrameCount, 1280)) / 1280 * HSM_FAKE_SCANLINE_ROLL;
 
     // float scans = clamp( 0.35+0.18*sin(6.0*time-curved_uv.y*resolution.y*1.5), 0.0, 1.0);
     // float s = pow(scans,0.9);
@@ -1036,7 +1036,7 @@ vec4 HSM_ApplyScanlineMask(vec4 in_color, vec2 screen_scale, vec2 in_coord, vec2
 
 	vec2 screen_size = global.OutputSize.xy * screen_scale;
 	float scan_axis_screen_scale_res = USE_VERTICAL_SCANLINES > 0.5 ? screen_size.x : screen_size.y;
-	
+
 	float cropped_rotated_scan_res = USE_VERTICAL_SCANLINES > 0.5 ? CROPPED_ROTATED_SIZE.x : CROPPED_ROTATED_SIZE.y;
 	float simulated_scanline_res = HSM_FAKE_SCANLINE_RES_MODE > 0.5 ? HSM_FAKE_SCANLINE_RES : cropped_rotated_scan_res;
 
@@ -1102,8 +1102,27 @@ vec2 HSM_ApplyOverscan(vec2 in_coord, float overscan_x, float overscan_y)
 
 float HSM_GetRasterBloomScale(float raster_bloom_overscan_mode, float raster_bloom_mult, float screen_avg_luma)
 {
-	return 1.00 + (1.0 - 0.5 * raster_bloom_overscan_mode) * raster_bloom_mult / 100 - screen_avg_luma * raster_bloom_mult / 100;
+	// Define the neutral range around the center
+	float neutral_range = HSM_OVERSCAN_RASTER_BLOOM_NEUTRAL_RANGE;
+
+	// Calculate the bloom scale based on the neutral range
+	float bloom_scale = 1.0;
+	float neutral_center = HSM_OVERSCAN_RASTER_BLOOM_NEUTRAL_RANGE_CENTER;
+	float neutral_min = neutral_center - neutral_range;
+	float neutral_max = neutral_center + neutral_range;
+	float adjusted_luma = neutral_center;
+	if (screen_avg_luma < 0.5 - neutral_range || screen_avg_luma > 0.5 + neutral_range)
+	{
+		if (screen_avg_luma < neutral_min)
+			adjusted_luma = neutral_center * HHLP_EasePowerIn(smoothstep(0, neutral_min, screen_avg_luma), 2);
+
+		if (screen_avg_luma > neutral_max)
+			adjusted_luma = neutral_center + (1 - neutral_center) * HHLP_EasePowerOut(smoothstep(neutral_max, 1, screen_avg_luma), 2);
+	}
+	bloom_scale = 1.00 + raster_bloom_mult * ((1.0 - 0.5 * raster_bloom_overscan_mode) - adjusted_luma);
+	return bloom_scale;
 }
+
 
 // Thanks to Guest.r for this simple yet effective implementation of raster bloom
 vec2 HSM_ApplyRasterBloomOverscan(vec2 in_coord, float raster_bloom_overscan_mode, float raster_bloom_mult, float screen_avg_luma)
@@ -1120,11 +1139,11 @@ vec2 HSM_ApplyRasterBloomOverscan(vec2 in_coord, float raster_bloom_overscan_mod
 
 /*
 	Anamorphic v1.1b Shader 2020
-	by Nerboruto 
+	by Nerboruto
 */
 float HSM_Anamorphic_Distort_Multiplier(float in_coord_1D, float in_distort_amount)
 {
-	if (in_distort_amount == 0.0) 
+	if (in_distort_amount == 0.0)
 		return 1.0;
 
 	float rx = abs(in_coord_1D);
@@ -1134,12 +1153,12 @@ float HSM_Anamorphic_Distort_Multiplier(float in_coord_1D, float in_distort_amou
 
 /*
 	Anamorphic v1.1b Shader 2020
-	by Nerboruto 
+	by Nerboruto
 */
 vec2 HSM_Anamorphic_Distort(vec2 in_coord, float in_distort_amount)
 {
 	if (in_distort_amount == 0.0) return in_coord;
-	
+
 	vec2 out_coord = in_coord * 2.0 - 1.0;
 	out_coord.x *= HSM_Anamorphic_Distort_Multiplier(out_coord.x, in_distort_amount);
 	out_coord = out_coord * 0.5 + 0.5;
@@ -1174,9 +1193,9 @@ vec2 HSM_GetCrtShaderFinalCoord(vec2 screen_coord,
 
 	if (HSM_OVERSCAN_RASTER_BLOOM_ON > 0.5)
 	{
-		screen_curved_coord_with_overscan_and_mirror = HSM_ApplyRasterBloomOverscan(screen_curved_coord_with_overscan_and_mirror, 
-			HSM_OVERSCAN_RASTER_BLOOM_MODE, 
-			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT, 
+		screen_curved_coord_with_overscan_and_mirror = HSM_ApplyRasterBloomOverscan(screen_curved_coord_with_overscan_and_mirror,
+			HSM_OVERSCAN_RASTER_BLOOM_MODE,
+			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT,
 			raster_bloom_avg_lum);
 	}
 	// -- END -- Repeated Section
@@ -1217,32 +1236,32 @@ vec2 HSM_GetCrtShaderFinalCoordExtraVariables(vec2 screen_coord,
 
 	if (HSM_OVERSCAN_RASTER_BLOOM_ON > 0.5)
 	{
-		screen_curved_coord_with_overscan_and_mirror = HSM_ApplyRasterBloomOverscan(screen_curved_coord_with_overscan_and_mirror, 
-			HSM_OVERSCAN_RASTER_BLOOM_MODE, 
-			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT, 
+		screen_curved_coord_with_overscan_and_mirror = HSM_ApplyRasterBloomOverscan(screen_curved_coord_with_overscan_and_mirror,
+			HSM_OVERSCAN_RASTER_BLOOM_MODE,
+			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT,
 			raster_bloom_avg_lum);
 	}
 	// -- END -- Repeated Section
 
-	// Screen Coordinate overscan but without curvature 
+	// Screen Coordinate overscan but without curvature
 	// Screen Curved Coordinate but not Mirrored
 	screen_curved_coord_with_overscan = HSM_ApplyOverscan(screen_curved_coord, HSM_OVERSCAN_X, HSM_OVERSCAN_Y);
 	screen_scale_with_overscan = screen_scale * (vec2(HSM_OVERSCAN_X, HSM_OVERSCAN_Y) + 1);
 
 	if (HSM_OVERSCAN_RASTER_BLOOM_ON > 0.5)
 	{
-		screen_curved_coord_with_overscan = HSM_ApplyRasterBloomOverscan(screen_curved_coord_with_overscan, 
-			HSM_OVERSCAN_RASTER_BLOOM_MODE, 
-			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT, 
+		screen_curved_coord_with_overscan = HSM_ApplyRasterBloomOverscan(screen_curved_coord_with_overscan,
+			HSM_OVERSCAN_RASTER_BLOOM_MODE,
+			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT,
 			raster_bloom_avg_lum);
 
-		screen_coord_with_overscan = HSM_ApplyRasterBloomOverscan(screen_coord_with_overscan, 
-			HSM_OVERSCAN_RASTER_BLOOM_MODE, 
-			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT, 
+		screen_coord_with_overscan = HSM_ApplyRasterBloomOverscan(screen_coord_with_overscan,
+			HSM_OVERSCAN_RASTER_BLOOM_MODE,
+			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT,
 			raster_bloom_avg_lum);
 
-		screen_scale_with_overscan *= HSM_GetRasterBloomScale(HSM_OVERSCAN_RASTER_BLOOM_MODE, 
-			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT, 
+		screen_scale_with_overscan *= HSM_GetRasterBloomScale(HSM_OVERSCAN_RASTER_BLOOM_MODE,
+			HSM_OVERSCAN_RASTER_BLOOM_AMOUNT,
 			raster_bloom_avg_lum);
 	}
 
@@ -1309,7 +1328,7 @@ vec4 HSM_ApplySimpleBGExplicit(	vec4 in_crt_color,
 	return out_color;
 }
 
-vec4 HSM_ApplySimpleBG(	vec4 in_crt_color, 
+vec4 HSM_ApplySimpleBG(	vec4 in_crt_color,
 						vec2 in_vTexCoord,
 						sampler2D Background
 						)
@@ -1366,10 +1385,10 @@ vec4 HSM_ApplyPackedTubeLayers(vec4 crt_color, vec4 image_layers_packed)
 	vec4 unpacked_precomp_tube_highlight = vec4(0);
 	vec4 unpacked_precomp_lighting_mask = vec4(0);
 
-	HSM_Unpack_1_Rgba_To_4_Rgba(image_layers_packed, 
-								unpacked_precomp_tube_diffuse, 
-								unpacked_precomp_gel, 
-								unpacked_precomp_tube_highlight, 
+	HSM_Unpack_1_Rgba_To_4_Rgba(image_layers_packed,
+								unpacked_precomp_tube_diffuse,
+								unpacked_precomp_gel,
+								unpacked_precomp_tube_highlight,
 								unpacked_precomp_lighting_mask);
 
 	unpacked_precomp_tube_diffuse = HSM_Linearize(unpacked_precomp_tube_diffuse, DEFAULT_SRGB_GAMMA);
@@ -1419,13 +1438,13 @@ vec4 HSM_ApplyPackedTubeLayers(vec4 crt_color, vec4 image_layers_packed)
 		out_color = HSM_BlendModeLayerMix(out_color, crt_color, BLEND_MODE_ADD, HSM_CRT_BLEND_AMOUNT);
 	// Apply the CRT image with Multiply Blend
 	else if (HSM_CRT_BLEND_MODE == 2)
-	{	
+	{
 		out_color = clamp(out_color, 0, 1);
 		out_color = HSM_BlendModeLayerMix(out_color, crt_color, BLEND_MODE_MULTIPLY, HSM_CRT_BLEND_AMOUNT);
 	}
 	// Apply the CRT image with "Over" Blend, probably useful for something like Gameboy DMG
 	else if (HSM_CRT_BLEND_MODE == 3)
-	{	
+	{
 		out_color = clamp(out_color, 0, 1);
 		out_color = HSM_BlendModeLayerMix(out_color, crt_color, BLEND_MODE_NORMAL, HSM_CRT_BLEND_AMOUNT);
 	}

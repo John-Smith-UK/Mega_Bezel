@@ -2,7 +2,7 @@
     Mega Bezel - Creates a graphic treatment for the game play area to give a retro feel
     Copyright (C) 2019-2023 HyperspaceMadness - HyperspaceMadness@outlook.com
 
-    Incorporates much great feedback from the libretro forum, and thanks 
+    Incorporates much great feedback from the libretro forum, and thanks
     to Hunterk who helped me get started
 
     See more at the libretro forum
@@ -302,7 +302,7 @@ float HSM_TUBE_COLORED_GEL_IMAGE_NIGHTLIGHT2_LIGHTING;
 float HSM_TUBE_COLORED_GEL_IMAGE_FAKE_SCANLINE_AMOUNT;
 float HSM_TUBE_COLORED_GEL_IMAGE_SCALE;
 float HSM_TUBE_COLORED_GEL_IMAGE_FLIP_HORIZONTAL;
-float HSM_TUBE_COLORED_GEL_IMAGE_FLIP_VERTICAL;	
+float HSM_TUBE_COLORED_GEL_IMAGE_FLIP_VERTICAL;
 
 //    TUBE STATIC REFLECTION
 float HSM_TUBE_STATIC_REFLECTION_IMAGE_ON;
@@ -373,7 +373,7 @@ float HSM_BZL_COLOR_HUE;
 float HSM_BZL_COLOR_SATURATION;
 float HSM_BZL_COLOR_VALUE;
 float HSM_BZL_NOISE;
-float HSM_BZL_BRIGHTNESS;	
+float HSM_BZL_BRIGHTNESS;
 float HSM_BZL_BRIGHTNESS_MULT_TOP;
 float HSM_BZL_BRIGHTNESS_MULT_BOTTOM;
 float HSM_BZL_BRIGHTNESS_MULT_SIDES;
@@ -402,7 +402,7 @@ float HSM_BZL_OUTER_POSITION_Y;
 float HSM_FRM_SHADOW_OPACITY;
 float HSM_FRM_SHADOW_WIDTH;
 
-// Corner 
+// Corner
 float HSM_REFLECT_CORNER_FADE;
 float HSM_REFLECT_CORNER_INNER_SPREAD;
 float HSM_REFLECT_CORNER_OUTER_SPREAD;
@@ -705,7 +705,7 @@ float HSM_DEVICELED_SCALE;
 float HSM_DEVICELED_SCALE_X;
 float HSM_DEVICELED_POS_X;
 float HSM_DEVICELED_POS_Y;
-float HSM_DEVICELED_MIPMAPPING_BLEND_BIAS;	
+float HSM_DEVICELED_MIPMAPPING_BLEND_BIAS;
 
 // Generated Bezel & Frame
 float HSM_FRM_OPACITY;
@@ -763,7 +763,7 @@ float HSM_CAB_GLASS_POS_X;
 float HSM_CAB_GLASS_POS_Y;
 float HSM_CAB_GLASS_MIPMAPPING_BLEND_BIAS;
 
-// Top 
+// Top
 float HSM_TOP_OPACITY;
 float HSM_TOP_HUE;
 float HSM_TOP_COLORIZE_ON;
@@ -785,7 +785,7 @@ float HSM_TOP_SPLIT_REPEAT_WIDTH;
 float HSM_TOP_SCALE;
 float HSM_TOP_SCALE_X;
 float HSM_TOP_POS_X;
-float HSM_TOP_POS_Y;	
+float HSM_TOP_POS_Y;
 float HSM_TOP_MIRROR_WRAP;
 float HSM_TOP_MIPMAPPING_BLEND_BIAS;
 
@@ -842,6 +842,8 @@ float IOS;
 float HSM_OVERSCAN_RASTER_BLOOM_ON;
 float HSM_OVERSCAN_RASTER_BLOOM_MODE;
 float HSM_OVERSCAN_RASTER_BLOOM_AMOUNT;
+float HSM_OVERSCAN_RASTER_BLOOM_NEUTRAL_RANGE;
+float HSM_OVERSCAN_RASTER_BLOOM_NEUTRAL_RANGE_CENTER;
 float HSM_OVERSCAN_AMOUNT;
 float HSM_OVERSCAN_X;
 float HSM_OVERSCAN_Y;
@@ -891,7 +893,7 @@ float bardir;
 
 float shadowMask;
 float maskstr;
-float mcut;	
+float mcut;
 float maskboost;
 float masksize;
 float mask_zoom;
@@ -916,11 +918,11 @@ float deconrg;
 float deconrb;
 float deconrry;
 float deconrgy;
-float deconrby;	
+float deconrby;
 float deconsmooth;
 float dctypex;
-float dctypey; 
-float dcscalemode; 
+float dctypey;
+float dcscalemode;
 
 float GDV_NOISE_ON;
 float addnoised;
@@ -964,8 +966,8 @@ float hcrt_pin_amp;
 /////////////// DEFINES ///////////////
 
 // Maximum Negative cropping fron each edge
-// This means that the pass with the negative crop area 
-// added needs to have twice this much added in each direction 
+// This means that the pass with the negative crop area
+// added needs to have twice this much added in each direction
 #define DEFAULT_CRT_GAMMA 2.4
 #define DEFAULT_SRGB_GAMMA 2.2
 

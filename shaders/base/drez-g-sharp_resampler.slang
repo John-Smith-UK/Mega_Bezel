@@ -2,7 +2,7 @@
 
 /*
    G-sharp resampler - dynamic range, resizable
-   
+
    Copyright (C) 2020 - 2021 guest(r) - guest.r@gmail.com
 
    This program is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
    Anti-Ringing inspired by Hyllian
-   
-*/ 
+
+*/
 
 #include "common/globals-and-screen-scale-params.inc"
 
@@ -75,8 +75,8 @@ layout(location = 0) out vec2 vTexCoord;
 
 void main()
 {
-   gl_Position = global.MVP * Position;
-   vTexCoord = TexCoord;
+	gl_Position = global.MVP * Position;
+	vTexCoord = TexCoord;
 }
 
 #pragma stage fragment
@@ -98,16 +98,17 @@ float gaussian(float x, float y)
 
 void main()
 {
-	if (HSM_DREZ_GSHARP_ON == 0 || OutputSize.y / SourceSize.y < HSM_DREZ_THRESHOLD_RATIO)
+	// If the effext is disabled or the downsample ratio is below the threshold, just sample the texture
+	if (HSM_DREZ_GSHARP_ON == 0 || SourceSize.y / OutputSize.y < HSM_DREZ_THRESHOLD_RATIO)
 	{
 		FragColor = texture(Source, vTexCoord);
 		return;
 	}
-	
+
 	vec2 f = fract(SourceSize.xy * vTexCoord.xy);
 	f = 0.5 - f;
 	vec2 tex = floor(SourceSize.xy * vTexCoord)*SourceSize.zw + 0.5*SourceSize.zw;
-	vec2 dx  = vec2(SourceSize.z, 0.0);	
+	vec2 dx  = vec2(SourceSize.z, 0.0);
 	vec2 dy  = vec2(0.0, SourceSize.w);
 
 	vec3 colorx = 0.0.xxx;
@@ -132,28 +133,28 @@ void main()
 	do
 	{
 		x = -LOOPSIZE;
-	
+
 		do
 		{
 			pixel  = COMPAT_TEXTURE(Source, tex + x*dx + y*dy).rgb;
-			
-			wx = gaussian(x+f.x, y+f.y) - sharp; 
+
+			wx = gaussian(x+f.x, y+f.y) - sharp;
 			fpx = (sqrt(dot(vec2(x+f.x,y+f.y),vec2(x+f.x,y+f.y)))-FPR)/FPR;
 			if (((x*x) + (y*y)) < 1.25*FPR) { xcmax = max(xcmax, pixel); xcmin = min(xcmin, pixel); }
 			if (wx < 0.0) wx = clamp(wx, mix(-maxsharp, 0.0, pow(abs(fpx), HSM_DREZ_SHAR)), 0.0);
 			colorx = colorx + wx * pixel;
 			wsumx  = wsumx + wx;
 			x = x + 1.0;
-			
+
 		} while (x <= LOOPSIZE);
-		
+
 		y = y + 1.0;
-		
+
 	} while (y <= LOOPSIZE);
 
 	vec3 color = colorx/wsumx;
-	
+
 	color = mix(clamp(color, 0.0, 1.0), clamp(color, xcmin, xcmax), HSM_DREZ_HAR);
-	
+
 	FragColor = vec4(color, 1.0);
 }
