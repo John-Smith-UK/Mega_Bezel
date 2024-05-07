@@ -104,7 +104,7 @@ This shader package is meant for you to experiment with and make your own creati
 ***
 **EDITING PRESETS**
   * You can then open this Simple Preset file and add other parameter adjustments or set textures as you see fit. E.G. add the following lines to change the background image: 
-    * `Background = "My.jpg"`
+    * `BackgroundImage = "My.jpg"`
   * Or change the path indicated on the `#reference` line to point at a different base preset
 
 ***
@@ -1160,7 +1160,7 @@ Adds a shadow on top of the tube diffuse image and colored gel
 - **Reflection  Mask Amount**
   - How much the image darkens the reflection
 - **Follow Layer**
-  - Which layer should the image mask match, Default is 4, Following the Device
+  - Which layer should the image mask match, Default is 4, Following the DeviceImage
   - **0 - FULL**
   - **1 - TUBE**
   - **2 - BEZEL**
@@ -1194,7 +1194,7 @@ Adds a shadow on top of the tube diffuse image and colored gel
 -----------------------------------------------------------------------------------------------
 **[ POTATO BACKGROUND IMAGE LAYER ]:**
 
-- **Background Blend Mode** - Default is Additive
+- **BackgroundImage Blend Mode** - Default is Additive
 
   - **OFF** -  is not applied
   - **NORMAL**
@@ -1205,10 +1205,10 @@ Adds a shadow on top of the tube diffuse image and colored gel
 
 - **Brightness**
 
-- **Show Background**
+- **Show BackgroundImage**
 
-  - **0 - UNDER SCREEN** - Background is applied under the screen and Since the default blend mode is additive this gives a backdrop effect. E.G. Tron's Deadly Discs
-  - **1 - OVER SCREEN** - Background is applied on top of the screen
+  - **0 - UNDER SCREEN** - BackgroundImage is applied under the screen and Since the default blend mode is additive this gives a backdrop effect. E.G. Tron's Deadly Discs
+  - **1 - OVER SCREEN** - BackgroundImage is applied on top of the screen
 
     
 
@@ -1218,9 +1218,9 @@ Adds a shadow on top of the tube diffuse image and colored gel
 -----------------------------------------------------------------------------------------------
 **[ GLASS BACKGROUND IMAGE ]:**
 
-- **Background  Opacity**
+- **BackgroundImage  Opacity**
 
-- **Background Blend Mode** - Default is Additive
+- **BackgroundImage Blend Mode** - Default is Additive
 
   - **Off** -  is not applied
 
@@ -1236,13 +1236,13 @@ Adds a shadow on top of the tube diffuse image and colored gel
 
 Layer order adjusts the order in which the layers are composited or "layered" on top of each other, the index 0 is the bottom or base layer. If two layers are given the same index they fall back to being composited in the order seen here.
 
-- **Background **
+- **BackgroundImage **
 - **Viewport Vignette**
 - **LED **
-- **Device **
-- **Device LED **
+- **DeviceImage **
+- **DeviceImage LED **
 - **CRT Screen**
-- **Decal **
+- **DecalImage **
 - **Cabinet Glass **
 - **Top **
 
@@ -1256,9 +1256,9 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - **0 - Full** - Scale to the viewport 
   - **1 - Tube** - Follow the Tube Scaling
   - **2 - Bezel** - Follow the Bezel Scaling
-  - **3 - Background** - Follow the Background  Scaling
+  - **3 - BackgroundImage** - Follow the BackgroundImage  Scaling
   - **4 - Bezel ** - Follow the Bezel  Scaling
-  - **5 - Decal ** - Follow the Decal  Scaling
+  - **5 - DecalImage ** - Follow the DecalImage  Scaling
 - **Scale**
   - Scales cutout in both directions
 - **Scale X**
@@ -1282,7 +1282,7 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - **4 - Bezel +** - Bezel and outward
   - **5 - Frame**
   - **6 - Frame +** - Frame and outward
-  - **7 - Background**  - Outside the frame
+  - **7 - BackgroundImage**  - Outside the frame
   
   
 
@@ -1333,7 +1333,7 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - ***4 - Bezel +*** *- Bezel and outward*
   - ***5 - Frame*** *- Frame
   - ***6 - Frame +*** *- Frame and outward*
-  - ***7 - Background***  *- Outside the frame*
+  - ***7 - BackgroundImage***  *- Outside the frame*
 
 - ***Cutout Mask***
   - ***0 - OFF*** *- Don't cut out any area of the layer*
@@ -1350,9 +1350,9 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - ***Full / Fullscreen*** *- Scale to the viewport*
   - ***Tube*** *- Follow the Tube Scaling*
   - ***Bezel*** *- Follow the Bezel Scaling*
-  - ***Background*** *- Follow the Background  Scaling*
+  - ***BackgroundImage*** *- Follow the BackgroundImage  Scaling*
   - ***Bezel *** *- Follow the Bezel  Scaling*
-  - ***Decal *** *- Follow the Decal  Scaling*
+  - ***DecalImage *** *- Follow the DecalImage  Scaling*
   - ***Top Extra *** *- Follow the Top Extra  Scaling*
 
 - ***Follow Mode***
@@ -1425,7 +1425,7 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
 - **Cutout Mask**
 - **Follow Layer**
   - **0 - Full**
-  - **1 - Background**
+  - **1 - BackgroundImage**
   - **2 - Tube**
   - **3 - Bezel**
 - **Scale**
@@ -1456,7 +1456,7 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - **1 - Tube**
   - **2 - Bezel**
   - **3 - BG**
-  - **4 - Device**
+  - **4 - DeviceImage**
 - **Follow Mode**
 - **Follow Full also follows Zoom**
 - ** Fill Mode**
@@ -1525,7 +1525,7 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - **1 - Tube**
   - **2 - Bezel**
   - **3 - BG**
-  - **4 - Device**
+  - **4 - DeviceImage**
 - **Follow Mode**
 - **Follow Full also follows Zoom**
 - ** Fill Mode**
@@ -1560,8 +1560,8 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - **1 - Tube**
   - **2 - Bezel**
   - **3 - BG**
-  - **4 - Device**
-  - **5 - Decal**
+  - **4 - DeviceImage**
+  - **5 - DecalImage**
 - **Follow Mode**
 - **Follow Full also follows Zoom**
 - ** Fill Mode**
@@ -1598,8 +1598,8 @@ Used to cut a rectangular area from the layers, for example cutting out the hole
   - **1 - Tube**
   - **2 - Bezel**
   - **3 - BG**
-  - **4 - Device**
-  - **5 - Decal**
+  - **4 - DeviceImage**
+  - **5 - DecalImage**
 - **Follow Mode**
 - **Follow Full also follows Zoom**
 - ** Fill Mode**

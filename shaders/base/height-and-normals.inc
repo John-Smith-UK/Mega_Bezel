@@ -108,18 +108,18 @@ layout(location = 0) out vec4 FragColor;
 layout(set = 0, binding = 1)	uniform sampler2D CacheInfoPass;
 
 //  Layers
-layout(set = 0, binding = 2)	uniform sampler2D Background;
+layout(set = 0, binding = 2)	uniform sampler2D BackgroundImage;
 layout(set = 0, binding = 3)	uniform sampler2D BackgroundNormals;
 layout(set = 0, binding = 4)	uniform sampler2D BackgroundHeight;
 
-layout(set = 0, binding = 5)	uniform sampler2D Device;
+layout(set = 0, binding = 5)	uniform sampler2D DeviceImage;
 layout(set = 0, binding = 6)	uniform sampler2D DeviceNormals;
 layout(set = 0, binding = 7)	uniform sampler2D DeviceHeight;
 
 layout(set = 0, binding = 8)	uniform sampler2D NormalsAndHeightPassFeedback;
 #define PassFeedback NormalsAndHeightPassFeedback
 
-// layout(set = 0, binding = 8)	uniform sampler2D ReflectionMask;
+// layout(set = 0, binding = 8)	uniform sampler2D ReflectionMaskImage;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,9 +174,9 @@ void main()
     float normal_width = 1;
 
     //-----------------------------------------------------------------------------------------
-    // Background
+    // BackgroundImage
     //-----------------------------------------------------------------------------------------
-    vec2 BACKGROUND_SIZE = textureSize(Background, 0);
+    vec2 BACKGROUND_SIZE = textureSize(BackgroundImage, 0);
     if (HSM_BG_OPACITY > 0 && BACKGROUND_SIZE.y > 16)
     {
         BACKGROUND_CURVED_COORD = HSM_GetScaledCoord(VIEWPORT_COORD,
@@ -203,7 +203,7 @@ void main()
         if (HSM_BG_WRAP_MODE == 2)
             BACKGROUND_CURVED_COORD = HSM_GetMirrorWrapCoord(BACKGROUND_CURVED_COORD);
 
-        vec4 bg_layer = HSM_GetMipmappedTexSample(Background, BACKGROUND_CURVED_COORD, BACKGROUND_SCALE, HSM_BG_MIPMAPPING_BLEND_BIAS);
+        vec4 bg_layer = HSM_GetMipmappedTexSample(BackgroundImage, BACKGROUND_CURVED_COORD, BACKGROUND_SCALE, HSM_BG_MIPMAPPING_BLEND_BIAS);
 
         vec4 bg_normals_layer = vec4(neutral_normals * bg_layer.a, bg_layer.a);
         if (HSM_3DSHADING_NORMAL_SOURCE == 1)
@@ -232,13 +232,13 @@ void main()
     }
 
     //----------------------------------------------------
-    // Device 
+    // DeviceImage 
     //----------------------------------------------------
     float device_center_height = HSM_Linearize(HSM_GetMipmappedTexSample(DeviceHeight, DEVICE_CURVED_COORD, DEVICE_SCALE, HSM_BG_MIPMAPPING_BLEND_BIAS), DEFAULT_SRGB_GAMMA).r;
     device_center_height = (device_center_height - HSM_HSHADOW_DEVICE_CONTRAST_CENTER) * HSM_HSHADOW_DEVICE_CONTRAST + HSM_HSHADOW_DEVICE_CONTRAST_CENTER;
     device_center_height += HSM_HSHADOW_DEVICE_OFFSET_Z;
 
-    vec2 DEVICE_SIZE = textureSize(Device, 0);
+    vec2 DEVICE_SIZE = textureSize(DeviceImage, 0);
     if (HSM_DEVICE_OPACITY > 0 && DEVICE_SIZE.y > 16)
     {
         DEVICE_CURVED_COORD = HSM_GetScaledCoord(VIEWPORT_COORD,
@@ -257,7 +257,7 @@ void main()
                                                 DEVICE_COORD,
                                                 DEVICE_SCALE);
 
-            vec4 device_layer = HSM_GetMipmappedTexSample(Device, DEVICE_CURVED_COORD, DEVICE_SCALE, HSM_BG_MIPMAPPING_BLEND_BIAS);
+            vec4 device_layer = HSM_GetMipmappedTexSample(DeviceImage, DEVICE_CURVED_COORD, DEVICE_SCALE, HSM_BG_MIPMAPPING_BLEND_BIAS);
 
             vec4 device_normals_layer = vec4(neutral_normals, 1);
             if (HSM_3DSHADING_NORMAL_SOURCE == 1)

@@ -2,7 +2,7 @@
     Mega Bezel - Creates a graphic treatment for the game play area to give a retro feel
     Copyright (C) 2019-2023 HyperspaceMadness - HyperspaceMadness@outlook.com
 
-    Incorporates much great feedback from the libretro forum, and thanks 
+    Incorporates much great feedback from the libretro forum, and thanks
     to Hunterk who helped me get started
 
     See more at the libretro forum
@@ -30,7 +30,7 @@
 #pragma parameter HSM_LAYER_ORDER_EMPTY_LINE	  " " 0 0 0.001 0.001
 #pragma parameter HSM_LAYER_ORDER_TITLE			  "[ LAYER ORDER ]:" 0 0 0.01 0.01
 
-#pragma parameter HSM_BG_LAYER_ORDER              "          Background Layer"  0 0 12 1
+#pragma parameter HSM_BG_LAYER_ORDER              "          BackgroundImage Layer"  0 0 12 1
 float HSM_BG_LAYER_ORDER = global.HSM_BG_LAYER_ORDER;
 
 #pragma parameter HSM_VIEWPORT_VIGNETTE_LAYER_ORDER "          Viewport Vignette"  1 0 12 1
@@ -42,22 +42,22 @@ float HSM_LED_LAYER_ORDER = global.HSM_LED_LAYER_ORDER;
 #pragma parameter HSM_MIDDLE_LAYER_GROUP_FIRST_LAYER "          ---Middle Layer Group FIRST Layer"  3 0 12 1
 float HSM_MIDDLE_LAYER_GROUP_FIRST_LAYER = global.HSM_MIDDLE_LAYER_GROUP_FIRST_LAYER;
 
-#pragma parameter HSM_DEVICE_LAYER_ORDER         "          Device Layer"  3 0 12 1
+#pragma parameter HSM_DEVICE_LAYER_ORDER         "          DeviceImage Layer"  3 0 12 1
 float HSM_DEVICE_LAYER_ORDER = global.HSM_DEVICE_LAYER_ORDER;
 
-#pragma parameter HSM_DEVICELED_LAYER_ORDER      "          Device LED Layer"  4 0 12 1
+#pragma parameter HSM_DEVICELED_LAYER_ORDER      "          DeviceImage LED Layer"  4 0 12 1
 float HSM_DEVICELED_LAYER_ORDER = global.HSM_DEVICELED_LAYER_ORDER;
 
 #pragma parameter HSM_BEZEL_LAYER_ORDER_OFFSET_FROM_TUBE "          Bezel Layer Offset from CRT Tube"  0 -5 0 1
 float HSM_BEZEL_LAYER_ORDER_OFFSET_FROM_TUBE = global.HSM_BEZEL_LAYER_ORDER_OFFSET_FROM_TUBE;
 
-// TODO need to resolve when CRT Tube is set at 0. 
+// TODO need to resolve when CRT Tube is set at 0.
 // Everything under the CRT must be in the middle or bottom layer
 // How to put reflection on top of layers above the tube?
 #pragma parameter HSM_CRT_LAYER_ORDER             "          ---CRT Tube (Middle Layer Group LAST Layer)"  5 0 12 1
 float HSM_CRT_LAYER_ORDER = global.HSM_CRT_LAYER_ORDER;
 
-#pragma parameter HSM_DECAL_LAYER_ORDER           "          Decal Layer"  7 0 12 1
+#pragma parameter HSM_DECAL_LAYER_ORDER           "          DecalImage Layer"  7 0 12 1
 float HSM_DECAL_LAYER_ORDER = global.HSM_DECAL_LAYER_ORDER;
 
 #pragma parameter HSM_CAB_GLASS_LAYER_ORDER       "          Cabinet Glass Layer"  9 0 12 1
@@ -250,7 +250,7 @@ float HSM_3DSHADING_SHADOW_FROM_RIGHT_AMOUNT = 1.0 * HSM_3DSHADING_DEPTH_SHADOW_
 // float HSM_3DSHADING_SHADOW_FROM_LEFT_AMOUNT = global.HSM_3DSHADING_SHADOW_FROM_LEFT_AMOUNT / 100.0;
 float HSM_3DSHADING_SHADOW_FROM_LEFT_AMOUNT = 1.0 * HSM_3DSHADING_DEPTH_SHADOW_AMOUNT;
 
-#pragma parameter HSM_HSHADOW_SAMPLES                                                   "          Samples"  50 5 600 1 // at 140 artifacts seem to disappear 
+#pragma parameter HSM_HSHADOW_SAMPLES                                                   "          Samples"  50 5 600 1 // at 140 artifacts seem to disappear
 float HSM_HSHADOW_SAMPLES = global.HSM_HSHADOW_SAMPLES;
 
 // #pragma parameter HSM_HSHADOW_NOISE                                                     "          Noise Amount"  100 0 600 5
@@ -292,7 +292,7 @@ float HSM_HSHADOW_BG_OFFSET_Z = global.HSM_HSHADOW_BG_OFFSET_Z / 100.0;
 // float HSM_HSHADOW_DEVICE_CONTRAST_CENTER = global.HSM_HSHADOW_DEVICE_CONTRAST_CENTER / 100.0;
 float HSM_HSHADOW_DEVICE_CONTRAST_CENTER = 1.0;
 
-#pragma parameter HSM_HSHADOW_DEVICE_CONTRAST                                           "          Device Height Contrast (Depth Details Multiplier)"  100 0 300 1
+#pragma parameter HSM_HSHADOW_DEVICE_CONTRAST                                           "         Device Height Contrast (Depth Details Multiplier)"  100 0 300 1
 float HSM_HSHADOW_DEVICE_CONTRAST = global.HSM_HSHADOW_DEVICE_CONTRAST / 100.0;
 
 #pragma parameter HSM_HSHADOW_DEVICE_OFFSET_Z                                           "          Device Height Offset Z"  0 -100 300 1
@@ -317,13 +317,13 @@ float HSM_COMPOSITE_BACKGROUND_STATIC_AMBIENT_MULTIPLIER = 1;
 float HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT1_MULTIPLIER = 0;
 
 // #pragma parameter HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER           "          Night Lighting 2nd  Multiplier"  100 0 100 1
-// float HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER = global.HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER / 100; 
-float HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER = 1.0; 
+// float HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER = global.HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER / 100;
+float HSM_COMPOSITE_BACKGROUND_NIGHTLIGHT2_MULTIPLIER = 1.0;
 
-// Not sure this is helpful, could have params to control how much Background Shadow, Device Shadow, etc
+// Not sure this is helpful, could have params to control how much BackgroundImage Shadow, DeviceImage Shadow, etc
 // #pragma parameter HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH           "          Static Shadow Strength"  100 0 300 1
-// float HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH = global.HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH / 100; 
-float HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH = 1; 
+// float HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH = global.HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH / 100;
+float HSM_COMPOSITE_BACKGROUND_STATIC_SHADOW_STRENGTH = 1;
 
 #pragma parameter HSM_COMPOSITE_BACKGROUND_BOUNCELIGHT_MULTIPLIER           "          Bouncelight Brightness Multiplier"  50 0 300 1
 float HSM_COMPOSITE_BACKGROUND_BOUNCELIGHT_MULTIPLIER = global.HSM_COMPOSITE_BACKGROUND_BOUNCELIGHT_MULTIPLIER / 100;
@@ -909,7 +909,7 @@ float HSM_CAB_GLASS_GAMMA = global.HSM_CAB_GLASS_GAMMA;
 
 #pragma parameter HSM_CAB_GLASS_BLEND_MODE                  "          Blend Mode - OFF | NORMAL | ADD | MULTIPLY"  1 0 3 1
 float HSM_CAB_GLASS_BLEND_MODE = global.HSM_CAB_GLASS_BLEND_MODE;
-    
+
 #pragma parameter HSM_CAB_GLASS_SOURCE_MATTE_TYPE           "          Source Matte Color - BLACK | WHITE | NONE"  2 0 2 1
 float HSM_CAB_GLASS_SOURCE_MATTE_TYPE = global.HSM_CAB_GLASS_SOURCE_MATTE_TYPE;
 

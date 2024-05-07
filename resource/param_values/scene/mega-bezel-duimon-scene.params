@@ -1,4 +1,4 @@
-Background = ../../../shaders/textures/Background_Sfc_Duimon.png
+BackgroundImage = ../../../shaders/textures/Background_Sfc_Duimon.png
 
 HSM_BG_FILL_MODE = 1
 

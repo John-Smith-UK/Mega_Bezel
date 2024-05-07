@@ -57,12 +57,12 @@ layout(set = 0, binding = 2) uniform sampler2D CacheInfoPass;
 // #ifdef USE_TUBEFX
 
 layout(set = 0, binding = 3) uniform sampler2D DitherNoise;
-layout(set = 0, binding = 4) uniform sampler2D TubeDiffuse;
-layout(set = 0, binding = 5) uniform sampler2D TubeShadow;
-layout(set = 0, binding = 6) uniform sampler2D TubeColoredGel;
-layout(set = 0, binding = 7) uniform sampler2D TubeHighlight;
-layout(set = 0, binding = 8) uniform sampler2D NightLighting;
-layout(set = 0, binding = 9) uniform sampler2D NightLighting2;
+layout(set = 0, binding = 4) uniform sampler2D TubeDiffuseImage;
+layout(set = 0, binding = 5) uniform sampler2D TubeShadowImage;
+layout(set = 0, binding = 6) uniform sampler2D TubeColoredGelImage;
+layout(set = 0, binding = 7) uniform sampler2D TubeStaticReflectionImage;
+layout(set = 0, binding = 8) uniform sampler2D NightLightingImage;
+layout(set = 0, binding = 9) uniform sampler2D NightLighting2Image;
 
 
 // #endif
@@ -210,8 +210,8 @@ void main()
 							nightlight1_opacity,
 							nightlight2_opacity,
 							HSM_LIGHT_NIGHTLIGHTING_SWAP_IMAGE_MODE, 
-							NightLighting, 
-							NightLighting2, 
+							NightLightingImage, 
+							NightLighting2Image, 
 							ambient_rgb, 
 							ambient2_rgb);
 
@@ -233,7 +233,7 @@ void main()
 		shadow_coord.y = HSM_FLIP_VIEWPORT_VERTICAL * (shadow_coord.y - 0.5) + 0.5;
 		
 
-		vec4 tube_shadow_sample = HSM_GetMipmappedTexSample(TubeShadow, shadow_coord, TUBE_SCALE * vec2(HSM_TUBE_SHADOW_IMAGE_SCALE_X, HSM_TUBE_SHADOW_IMAGE_SCALE_Y), 0);
+		vec4 tube_shadow_sample = HSM_GetMipmappedTexSample(TubeShadowImage, shadow_coord, TUBE_SCALE * vec2(HSM_TUBE_SHADOW_IMAGE_SCALE_X, HSM_TUBE_SHADOW_IMAGE_SCALE_Y), 0);
 		tube_shadow_sample = HSM_GLOBAL_GRAPHICS_BRIGHTNESS * HSM_GetPreMultipliedColorLinear(tube_shadow_sample, SOURCE_MATTE_PREMULTIPLIED, DEFAULT_SRGB_GAMMA);
 
 		tube_shadow = (1 - HSM_TUBE_SHADOW_IMAGE_OPACITY) + HSM_TUBE_SHADOW_IMAGE_OPACITY * max(max(tube_shadow_sample.r, tube_shadow_sample.g), tube_shadow_sample.b);
@@ -251,7 +251,7 @@ void main()
 	// When tube uses texture
 	if (HSM_TUBE_DIFFUSE_MODE == 1)
 	{
-		// TubeDiffuse
+		// TubeDiffuseImage
 		if (adjusted_tube_diffuse_amount > 0 || HSM_CRT_BLEND_MODE == 2)
 		{
 			vec2 diffuse_coord = tube_diffuse_curved_coord;
@@ -263,7 +263,7 @@ void main()
 			diffuse_coord = (diffuse_coord - 0.5) / (HSM_TUBE_DIFFUSE_IMAGE_SCALE * vec2(HSM_TUBE_DIFFUSE_IMAGE_SCALE_X, 1)) + 0.5;
 
 			// HSM_RotateCoordinate(diffuse_coord, HSM_TUBE_DIFFUSE_IMAGE_ROTATION)
-			precomp_tube_diffuse = HSM_GetMipmappedTexSample(TubeDiffuse, HSM_RotateCoordinate(diffuse_coord, HSM_TUBE_DIFFUSE_IMAGE_ROTATION), TUBE_SCALE * HSM_TUBE_DIFFUSE_IMAGE_SCALE, 0);
+			precomp_tube_diffuse = HSM_GetMipmappedTexSample(TubeDiffuseImage, HSM_RotateCoordinate(diffuse_coord, HSM_TUBE_DIFFUSE_IMAGE_ROTATION), TUBE_SCALE * HSM_TUBE_DIFFUSE_IMAGE_SCALE, 0);
 			precomp_tube_diffuse.rgb = HSM_GLOBAL_GRAPHICS_BRIGHTNESS * HSM_GetPreMultipliedColorLinear(vec4(precomp_tube_diffuse.rgb, 1.0), SOURCE_MATTE_PREMULTIPLIED, DEFAULT_SRGB_GAMMA).rgb;
 			precomp_tube_diffuse.rgb = HSM_ApplyHSVAdjustment(precomp_tube_diffuse.rgb, HSM_TUBE_DIFFUSE_IMAGE_HUE, HSM_TUBE_DIFFUSE_IMAGE_SATURATION, HSM_TUBE_DIFFUSE_IMAGE_BRIGHTNESS, HSM_TUBE_DIFFUSE_IMAGE_COLORIZE_ON, HSM_TUBE_DIFFUSE_IMAGE_GAMMA);
 			precomp_tube_diffuse.rgb *= HSM_TUBE_DIFFUSE_IMAGE_AMOUNT;
@@ -295,7 +295,7 @@ void main()
 		gel_coord.y = HSM_TUBE_COLORED_GEL_IMAGE_FLIP_VERTICAL * (gel_coord.y - 0.5) + 0.5;
 		gel_coord = (gel_coord - 0.5) / HSM_TUBE_COLORED_GEL_IMAGE_SCALE + 0.5;
 
-		vec4 gel_image = HSM_GetMipmappedTexSample(TubeColoredGel, gel_coord, TUBE_SCALE, HSM_TUBE_COLORED_GEL_MIPMAPPING_BLEND_BIAS);
+		vec4 gel_image = HSM_GetMipmappedTexSample(TubeColoredGelImage, gel_coord, TUBE_SCALE, HSM_TUBE_COLORED_GEL_MIPMAPPING_BLEND_BIAS);
 		gel_image = HSM_Linearize(gel_image, DEFAULT_SRGB_GAMMA) * HSM_GLOBAL_GRAPHICS_BRIGHTNESS;
 
 		// Tube Diffuse apply Gel Multiply
@@ -335,7 +335,7 @@ void main()
 	vec4 precomp_tube_highlight = vec4(0);
 	if (HSM_GetUseTubeHighlight())
 	{
-		precomp_tube_highlight.rgb = HSM_GetTubeHighlight(tube_curved_coord, false, TubeHighlight, DitherNoise);
+		precomp_tube_highlight.rgb = HSM_GetTubeHighlight(tube_curved_coord, false, TubeStaticReflectionImage, DitherNoise);
 		precomp_tube_highlight.rgb = HSM_ApplyAmbient(precomp_tube_highlight.rgb, ambient_rgb, HSM_TUBE_STATIC_LIGHT_NIGHTLIGHTING);
 		precomp_tube_highlight.rgb = HSM_ApplyAmbient(precomp_tube_highlight.rgb, ambient2_rgb, HSM_TUBE_STATIC_NIGHTLIGHT2_LIGHTING);
 
@@ -387,7 +387,7 @@ void main()
 	vec4 out_color = image_layers_packed;
 
 // #ifdef ADD_SIMPLE_BG
-// 	out_color = HSM_ApplySimpleBG(out_color, vTexCoord, Background);
+// 	out_color = HSM_ApplySimpleBG(out_color, vTexCoord, BackgroundImage);
 // #endif
 
 	// If we have calculated an image then set -1 as a flag to show that we have

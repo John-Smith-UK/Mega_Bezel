@@ -198,7 +198,7 @@ alias19 = "ReflectPass"
 
 # Textures Glass
 # Define textures to be used by the different passes
-textures = "SamplerLUT1;SamplerLUT2;SamplerLUT3;SamplerLUT4;DitherNoise;IntroLogo;ScreenPlacement;TubeDiffuse;TubeColoredGel;TubeShadow;TubeHighlight;Background;GlassPresetHighlight;NightLighting;NightLighting2;"
+textures = "SamplerLUT1;SamplerLUT2;SamplerLUT3;SamplerLUT4;DitherNoise;IntroImage;ScreenPlacementImage;TubeDiffuseImage;TubeColoredGelImage;TubeShadowImage;TubeStaticReflectionImage;BackgroundImage;GlassPresetHighlight;NightLightingImage;NightLighting2Image;"
 
 SamplerLUT1 = ../../../shaders/guest/lut/trinitron-lut.png
 SamplerLUT1_linear = true 
@@ -214,30 +214,30 @@ DitherNoise_linear = false
 DitherNoise_mipmap = false
 DitherNoise_wrap_mode = "repeat"
 
-IntroLogo = ../../../shaders/textures/IntroLogo_MegaBezel.png
+IntroImage = ../../../shaders/textures/IntroLogo_MegaBezel.png
 IntroLogo_linear = true
 IntroLogo_mipmap = 1
 
-ScreenPlacement = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+ScreenPlacementImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 ScreenPlacement_linear = false
 
-TubeHighlight = ../../../shaders/textures/TubeHighlightCropped.png
+TubeStaticReflectionImage = ../../../shaders/textures/TubeHighlightCropped.png
 TubeHighlight_linear = true
 TubeHighlight_mipmap = 1
 
-TubeDiffuse = ../../../shaders/textures/Tube_Diffuse.png
+TubeDiffuseImage = ../../../shaders/textures/Tube_Diffuse.png
 TubeDiffuse_linear = true
 TubeDiffuse_mipmap = 1
 
-TubeShadow = ../../../shaders/textures/Tube_Shadow.png
+TubeShadowImage = ../../../shaders/textures/Tube_Shadow.png
 TubeShadow_linear = true
 TubeShadow_mipmap = 1
 
-TubeColoredGel = ../../../shaders/textures/ColoredGel_Rainbow.png
+TubeColoredGelImage = ../../../shaders/textures/ColoredGel_Rainbow.png
 TubeColoredGel_linear = true
 TubeColoredGel_mipmap = 1
 
-ReflectionMask = ../../../shaders/textures/Placeholder_White_16x16.png
+ReflectionMaskImage = ../../../shaders/textures/Placeholder_White_16x16.png
 ReflectionMask_linear = true
 ReflectionMask_mipmap = 1
 
@@ -245,43 +245,43 @@ GlassPresetHighlight = ../../../shaders/textures/GlassPresetHighlight.png
 GlassPresetHighlight_linear = true
 GlassPresetHighlight_mipmap = 1
 
-FrameHighlight = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+FrameTextureImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 FrameHighlight_linear = true
 FrameHighlight_mipmap = 1
 
-Background = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+BackgroundImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 Background_linear = true
 Background_mipmap = 1
 
-// CabinetGlass = ../../../shaders/textures/GlassPresetHighlight.png
+// CabinetGlassImage = ../../../shaders/textures/GlassPresetHighlight.png
 // CabinetGlass_linear = true
 // CabinetGlass_mipmap = 1
 
-// Device = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// DeviceImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // Device_linear = true
 // Device_mipmap = 1
 
-// DeviceBackgroundLED = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// DeviceLEDImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // DeviceBackgroundLED_linear = true
 // DeviceBackgroundLED_mipmap = 1
 
-// Decal = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// DecalImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // Decal_linear = true
 // Decal_mipmap = 1
 
-NightLighting = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+NightLightingImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 NightLighting_linear = true
 NightLighting_mipmap = 1
 
-NightLighting2 = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+NightLighting2Image = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 NightLighting2_linear = true
 NightLighting2_mipmap = 1
 
-// BackgroundLED = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// LEDImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // BackgroundLED_linear = true
 // BackgroundLED_mipmap = 1
 
-// TopLayer = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// TopLayerImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // TopLayer_linear = true
 // TopLayer_mipmap = 1
 
@@ -344,7 +344,7 @@ HSM_REFLECT_NOISE_SAMPLE_DISTANCE = "15.0000"
 
 # Textures Glass
 # Define textures to be used by the different passes
-textures = "SamplerLUT1;SamplerLUT2;SamplerLUT3;SamplerLUT4;DitherNoise;IntroLogo;ScreenPlacement;TubeDiffuse;TubeColoredGel;TubeShadow;TubeHighlight;Background;GlassPresetHighlight;NightLighting;NightLighting2;"
+textures = "SamplerLUT1;SamplerLUT2;SamplerLUT3;SamplerLUT4;DitherNoise;IntroImage;ScreenPlacementImage;TubeDiffuseImage;TubeColoredGelImage;TubeShadowImage;TubeStaticReflectionImage;BackgroundImage;GlassPresetHighlight;NightLightingImage;NightLighting2Image;"
 
 SamplerLUT1 = ../../../shaders/guest/lut/trinitron-lut.png
 SamplerLUT1_linear = true 
@@ -360,30 +360,30 @@ DitherNoise_linear = false
 DitherNoise_mipmap = false
 DitherNoise_wrap_mode = "repeat"
 
-IntroLogo = ../../../shaders/textures/IntroLogo_MegaBezel.png
+IntroImage = ../../../shaders/textures/IntroLogo_MegaBezel.png
 IntroLogo_linear = true
 IntroLogo_mipmap = 1
 
-ScreenPlacement = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+ScreenPlacementImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 ScreenPlacement_linear = false
 
-TubeHighlight = ../../../shaders/textures/TubeHighlightCropped.png
+TubeStaticReflectionImage = ../../../shaders/textures/TubeHighlightCropped.png
 TubeHighlight_linear = true
 TubeHighlight_mipmap = 1
 
-TubeDiffuse = ../../../shaders/textures/Tube_Diffuse.png
+TubeDiffuseImage = ../../../shaders/textures/Tube_Diffuse.png
 TubeDiffuse_linear = true
 TubeDiffuse_mipmap = 1
 
-TubeShadow = ../../../shaders/textures/Tube_Shadow.png
+TubeShadowImage = ../../../shaders/textures/Tube_Shadow.png
 TubeShadow_linear = true
 TubeShadow_mipmap = 1
 
-TubeColoredGel = ../../../shaders/textures/ColoredGel_Rainbow.png
+TubeColoredGelImage = ../../../shaders/textures/ColoredGel_Rainbow.png
 TubeColoredGel_linear = true
 TubeColoredGel_mipmap = 1
 
-ReflectionMask = ../../../shaders/textures/Placeholder_White_16x16.png
+ReflectionMaskImage = ../../../shaders/textures/Placeholder_White_16x16.png
 ReflectionMask_linear = true
 ReflectionMask_mipmap = 1
 
@@ -391,42 +391,42 @@ GlassPresetHighlight = ../../../shaders/textures/GlassPresetHighlight.png
 GlassPresetHighlight_linear = true
 GlassPresetHighlight_mipmap = 1
 
-FrameHighlight = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+FrameTextureImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 FrameHighlight_linear = true
 FrameHighlight_mipmap = 1
 
-Background = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+BackgroundImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 Background_linear = true
 Background_mipmap = 1
 
-// CabinetGlass = ../../../shaders/textures/GlassPresetHighlight.png
+// CabinetGlassImage = ../../../shaders/textures/GlassPresetHighlight.png
 // CabinetGlass_linear = true
 // CabinetGlass_mipmap = 1
 
-// Device = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// DeviceImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // Device_linear = true
 // Device_mipmap = 1
 
-// DeviceBackgroundLED = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// DeviceLEDImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // DeviceBackgroundLED_linear = true
 // DeviceBackgroundLED_mipmap = 1
 
-// Decal = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// DecalImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // Decal_linear = true
 // Decal_mipmap = 1
 
-NightLighting = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+NightLightingImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 NightLighting_linear = true
 NightLighting_mipmap = 1
 
-NightLighting2 = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+NightLighting2Image = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 NightLighting2_linear = true
 NightLighting2_mipmap = 1
 
-// BackgroundLED = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// LEDImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // BackgroundLED_linear = true
 // BackgroundLED_mipmap = 1
 
-// TopLayer = ../../../shaders/textures/Placeholder_Transparent_16x16.png
+// TopLayerImage = ../../../shaders/textures/Placeholder_Transparent_16x16.png
 // TopLayer_linear = true
 // TopLayer_mipmap = 1

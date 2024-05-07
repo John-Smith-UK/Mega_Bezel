@@ -2,7 +2,7 @@
     Mega Bezel - Creates a graphic treatment for the game play area to give a retro feel
     Copyright (C) 2019-2023 HyperspaceMadness - HyperspaceMadness@outlook.com
 
-    Incorporates much great feedback from the libretro forum, and thanks 
+    Incorporates much great feedback from the libretro forum, and thanks
     to Hunterk who helped me get started
 
     See more at the libretro forum
@@ -42,7 +42,7 @@ layout(location = 0) in vec2 vTexCoord;
 layout(location = 0) out vec4 FragColor;
 layout(set = 0, binding = 1) uniform sampler2D Source;
 layout(set = 0, binding = 2) uniform sampler2D CacheInfoPassFeedback;
-layout(set = 0, binding = 3) uniform sampler2D ScreenPlacement;
+layout(set = 0, binding = 3) uniform sampler2D ScreenPlacementImage;
 
 // Get the original size with split area added
 vec2 HSM_GetScreenCorePreppedSize(float screen_index)
@@ -81,7 +81,7 @@ float HSM_GetUseVerticalScanlines(float screen_aspect)
 {
 	float auto_use_vert_scanlines = screen_aspect < 1 ? 1 : 0;
 	float out_scanline_direction = 0;
-	
+
 	if (HSM_SCANLINE_DIRECTION < 1)
 		out_scanline_direction = screen_aspect < 1 ? 1 : 0;
 	else if (HSM_SCANLINE_DIRECTION > 1.5)
@@ -94,9 +94,9 @@ vec2 HSM_GetScreenScaleWithEdgeHeight(vec2 edge_thickness, vec2 screen_scale)
 // Edge thickness is a 0 to 1 percentage of the screen height
 {
 	float output_aspect_ratio = global.FinalViewportSize.x / global.FinalViewportSize.y;
-	
+
 	float aspect_ratio = screen_scale.x / screen_scale.y;
-	
+
 	vec2 edge_width_height_as_scale = vec2(0, 0);
 	edge_width_height_as_scale.x = 1 + (edge_thickness.x / screen_scale.y) / aspect_ratio / output_aspect_ratio;
 	edge_width_height_as_scale.y = 1 + edge_thickness.y / screen_scale.y;
@@ -192,7 +192,7 @@ vec2 HSM_GetScreenScale(float screen_aspect, float screen_height_from_image, vec
 		// If the screen is too high
 		if ((viewport_res_y_without_border * screen_aspect) > global.FinalViewportSize.x)
 		{
-			viewport_res_y_without_border = (1 - 2 * (1 - HSM_INT_SCALE_MAX_HEIGHT)) * global.FinalViewportSize.x / screen_aspect; 
+			viewport_res_y_without_border = (1 - 2 * (1 - HSM_INT_SCALE_MAX_HEIGHT)) * global.FinalViewportSize.x / screen_aspect;
 		}
 
 		float integer_scale_multiple_vert = clamp(floor(viewport_res_y_without_border / cropped_size.y) + HSM_INT_SCALE_MULTIPLE_OFFSET, 1, 100);
@@ -258,7 +258,7 @@ float HSM_GetIsCorePreppedSizeVertical(float screen_index)
 vec2 HSM_GetResMult(float use_vert_scanlines)
 {
 	vec2 sampling_mult = vec2(HSM_CORE_RES_SAMPLING_MULT_SCANLINE_DIR, HSM_CORE_RES_SAMPLING_MULT_OPPOSITE_DIR);
-	
+
 	if (use_vert_scanlines == 1 && HSM_ROTATE_CORE_IMAGE == 0 || use_vert_scanlines == 0 && abs(HSM_ROTATE_CORE_IMAGE) == 1)
 		sampling_mult = sampling_mult.yx;
 
@@ -270,7 +270,7 @@ bool HSM_ResolutionIsEqual(vec2 in_res, vec2 match_res)
 	return (in_res == match_res);
 }
 
-// if return_rough_aspect is on we only get a rough aspect which doesn't 
+// if return_rough_aspect is on we only get a rough aspect which doesn't
 // require the cropped_size (which implicates the use_vertical_scanlines)
 float HSM_GetScreenAspect(float screen_index, vec2 cropped_size)
 {
@@ -297,9 +297,9 @@ float HSM_GetScreenAspect(float screen_index, vec2 cropped_size)
 	vec2 sony_ps_fmv_res = 					vec2(320, 480);
 	vec2 sony_ps_fmv_res_2 = 				vec2(512, 480);
 
-	// This should handle some PS games with weird resolutions like Tekken and Driver 
+	// This should handle some PS games with weird resolutions like Tekken and Driver
 	float sony_ps_height = 448;
-	
+
 	if (HSM_ASPECT_RATIO_MODE == 0)
 	{
 		// If the vertical res is larger than 580 is is probably a modern square pixel resolution
@@ -324,7 +324,7 @@ float HSM_GetScreenAspect(float screen_index, vec2 cropped_size)
 		// Fall back to the explicit ratio
 		else horizontal_aspect = HSM_ASPECT_RATIO_EXPLICIT;
 	}
-	else 
+	else
 		if (HSM_ASPECT_RATIO_MODE == 1) horizontal_aspect = HSM_ASPECT_RATIO_EXPLICIT;
 		else if (HSM_ASPECT_RATIO_MODE == 2) horizontal_aspect = 1.3333;
 		else if (HSM_ASPECT_RATIO_MODE == 3) horizontal_aspect = 1.5;
@@ -342,13 +342,13 @@ float HSM_GetScreenAspect(float screen_index, vec2 cropped_size)
 	{
 		// Catch for Atari 2600 - Stella Emulator which would otherwise show up as a vertical aspect ratio
 		if (
-				HSM_ResolutionIsEqual(atari_2600_res, original_size) || 
+				HSM_ResolutionIsEqual(atari_2600_res, original_size) ||
 		   		HSM_ResolutionIsEqual(atari_2600_crop_res, original_size) ||
 		   		HSM_ResolutionIsEqual(sega_saturn_fmv_res, original_size) ||
 				HSM_ResolutionIsEqual(sony_ps_fmv_res, original_size) ||
 				HSM_ResolutionIsEqual(sony_ps_fmv_res_2, original_size) ||
 				original_size.y == sony_ps_height
-		   ) 
+		   )
 		{
 		   final_orientation = 1;
 		}
@@ -357,7 +357,7 @@ float HSM_GetScreenAspect(float screen_index, vec2 cropped_size)
 			final_orientation = (HSM_GetIsCorePreppedSizeVertical(screen_index) > 0.5) ? 2 : 1;
 		}
 	}
-	
+
 	float final_aspect_ratio = (final_orientation < 1.5) ? horizontal_aspect : vertical_aspect;
 
 	return final_aspect_ratio;
@@ -365,9 +365,9 @@ float HSM_GetScreenAspect(float screen_index, vec2 cropped_size)
 
 int HSM_IsCoordIn2DRange(vec2 in_coord, vec4 in_2d_range)
 {
-	return (in_coord.x > in_2d_range.x && 
-			in_coord.y > in_2d_range.y && 
-			in_coord.x < in_2d_range.z && 
+	return (in_coord.x > in_2d_range.x &&
+			in_coord.y > in_2d_range.y &&
+			in_coord.x < in_2d_range.z &&
 			in_coord.y < in_2d_range.w ) ? 1 : 0;
 }
 
@@ -510,7 +510,7 @@ void HSM_GetCroppedRotatedSizeAndPixelSampleAreaStart(float screen_index, sample
 				default_crop_right_px = floor(rotated_negative_crop_added_size.x * (0.5 + HSM_DUALSCREEN_CORE_IMAGE_SPLIT_OFFSET));
 				crop_left_px = floor(crop_left_px / 2);
 				crop_right_px = floor(crop_right_px / 2);
-			}	
+			}
 		}
 
 		vec2 base_cropped_size = rotated_negative_crop_added_size - vec2(final_crop_left_px + final_crop_right_px, final_crop_top_px + final_crop_bottom_px);
@@ -572,7 +572,7 @@ void HSM_GetCroppedRotatedSizeAndPixelSampleAreaStart(float screen_index, sample
 		}
 
 	}
- 
+
 	// Make sure we don't actually negatively crop
 	final_crop_top_px = clamp(final_crop_top_px, 0, 20000);
 	final_crop_bottom_px = clamp(final_crop_bottom_px, 0, 20000);
@@ -603,7 +603,7 @@ float HSM_GetParameterSum()
 					+ HSM_SINDEN_BORDER_EMPTY_TUBE_COMPENSATION
 
 					+ HSM_CACHE_GRAPHICS_ON
-					
+
 					// Night Lighting
 					+ HSM_LIGHTING_BLEND * 100
 					+ HSM_NIGHTLIGHT1_OPACITY * 100
@@ -992,11 +992,11 @@ float HSM_GetParameterSum()
 					+ HSM_HSHADOW_DEVICE_CONTRAST
 					+ HSM_HSHADOW_DEVICE_CONTRAST_CENTER
 					+ HSM_HSHADOW_DEVICE_OFFSET_Z
-					
+
 					+ HSM_HSHADOW_BEZEL_OFFSET_Z
 
 
-					// Background
+					// BackgroundImage
 					+ HSM_BG_OPACITY
 					+ HSM_BG_COLORIZE_ON
 					+ HSM_BG_HUE * 360
@@ -1022,7 +1022,7 @@ float HSM_GetParameterSum()
 					+ HSM_BG_WRAP_MODE
 					+ HSM_BG_MIPMAPPING_BLEND_BIAS
 
-					// Background Vignette
+					// BackgroundImage Vignette
 					+ HSM_VIEWPORT_VIGNETTE_OPACITY * 100
 					+ HSM_VIEWPORT_VIGNETTE_MASK_MODE
 					+ HSM_VIEWPORT_VIGNETTE_CUTOUT_MODE
@@ -1118,7 +1118,7 @@ float HSM_GetParameterSum()
 					+ HSM_DEVICELED_POS_Y * 100
 					+ HSM_DEVICELED_MIPMAPPING_BLEND_BIAS
 
-					// Decal
+					// DecalImage
 					+ HSM_DECAL_OPACITY * 100
 					+ HSM_DECAL_COLORIZE_ON
 					+ HSM_DECAL_HUE * 360
@@ -1168,7 +1168,7 @@ float HSM_GetParameterSum()
 					+ HSM_CAB_GLASS_POS_Y * 100
 					+ HSM_CAB_GLASS_MIPMAPPING_BLEND_BIAS
 
-					// Top 
+					// Top
 					+ HSM_TOP_OPACITY * 100
 					+ HSM_TOP_COLORIZE_ON
 					+ HSM_TOP_HUE * 360
@@ -1234,7 +1234,7 @@ vec4 HSM_GetColorForScreenInfoCache(vec2 viewport_coord, sampler2D feedback_pass
 	// Adjust tube empty thickness for Sinden lightgun bright edge border if needed
 	float tube_sinden_border_thickness =  HSM_SINDEN_BORDER_ON > 0.5 && HSM_SINDEN_BORDER_EMPTY_TUBE_COMPENSATION > 0.5 ? 0.6 * HSM_SINDEN_BORDER_THICKNESS * 60 : 0;
 
-	vec2 tube_diffuse_scale = HSM_GetTubeScale(screen_scale, screen_pos_and_height.z, vec2(HSM_TUBE_EMPTY_THICKNESS * HSM_TUBE_EMPTY_THICKNESS_X_SCALE + tube_sinden_border_thickness, HSM_TUBE_EMPTY_THICKNESS + screen_aspect * tube_sinden_border_thickness));	
+	vec2 tube_diffuse_scale = HSM_GetTubeScale(screen_scale, screen_pos_and_height.z, vec2(HSM_TUBE_EMPTY_THICKNESS * HSM_TUBE_EMPTY_THICKNESS_X_SCALE + tube_sinden_border_thickness, HSM_TUBE_EMPTY_THICKNESS + screen_aspect * tube_sinden_border_thickness));
 	float tube_diffuse_aspect = tube_diffuse_scale.x / tube_diffuse_scale.y * output_aspect;
 
 	// TODO need to adjust height in screen_pos_and_height with the tube extra thickness
@@ -1249,7 +1249,7 @@ vec4 HSM_GetColorForScreenInfoCache(vec2 viewport_coord, sampler2D feedback_pass
 		tube_diffuse_scale = vec2( tube_diffuse_scale.y * tube_diffuse_aspect / output_aspect, tube_diffuse_scale.y );
 	}
 
-	vec2 tube_scale = HSM_GetTubeScale(tube_diffuse_scale, screen_pos_and_height.z, vec2(HSM_TUBE_BLACK_EDGE_THICKNESS * HSM_TUBE_BLACK_EDGE_THICKNESS_X_SCALE, HSM_TUBE_BLACK_EDGE_THICKNESS));	
+	vec2 tube_scale = HSM_GetTubeScale(tube_diffuse_scale, screen_pos_and_height.z, vec2(HSM_TUBE_BLACK_EDGE_THICKNESS * HSM_TUBE_BLACK_EDGE_THICKNESS_X_SCALE, HSM_TUBE_BLACK_EDGE_THICKNESS));
 
 	vec2 pos_offset = HSM_GetScreenPositionOffset(screen_pos_and_height.xy, screen_scale, 1);
 
@@ -1263,8 +1263,8 @@ vec4 HSM_GetColorForScreenInfoCache(vec2 viewport_coord, sampler2D feedback_pass
 	vec2 screen_size_2nd_screen = GetScreenSizeWithZoom(screen_scale_2nd_screen);
 	vec2 cropped_size_with_res_mult_2nd_screen = HSM_GetCroppedRotatedSizeWithResMult(cropped_size_2nd_screen, sampling_dir_mult);
 
-	vec2 tube_diffuse_scale_2nd_screen = 	HSM_GetTubeScale(screen_scale_2nd_screen, 		DEFAULT_UNCORRECTED_SCREEN_SCALE.y, vec2(HSM_TUBE_EMPTY_THICKNESS * HSM_TUBE_EMPTY_THICKNESS_X_SCALE, 			HSM_TUBE_EMPTY_THICKNESS));	
-	vec2 tube_scale_2nd_screen = 			HSM_GetTubeScale(tube_diffuse_scale_2nd_screen, DEFAULT_UNCORRECTED_SCREEN_SCALE.y, vec2(HSM_TUBE_BLACK_EDGE_THICKNESS * HSM_TUBE_BLACK_EDGE_THICKNESS_X_SCALE, HSM_TUBE_BLACK_EDGE_THICKNESS));	
+	vec2 tube_diffuse_scale_2nd_screen = 	HSM_GetTubeScale(screen_scale_2nd_screen, 		DEFAULT_UNCORRECTED_SCREEN_SCALE.y, vec2(HSM_TUBE_EMPTY_THICKNESS * HSM_TUBE_EMPTY_THICKNESS_X_SCALE, 			HSM_TUBE_EMPTY_THICKNESS));
+	vec2 tube_scale_2nd_screen = 			HSM_GetTubeScale(tube_diffuse_scale_2nd_screen, DEFAULT_UNCORRECTED_SCREEN_SCALE.y, vec2(HSM_TUBE_BLACK_EDGE_THICKNESS * HSM_TUBE_BLACK_EDGE_THICKNESS_X_SCALE, HSM_TUBE_BLACK_EDGE_THICKNESS));
 	float tube_aspect_2nd_screen = tube_scale_2nd_screen.x / tube_scale_2nd_screen.y * output_aspect;
 
 	// TODO need to add tube diffuse aspect to cache data
@@ -1288,13 +1288,13 @@ vec4 HSM_GetColorForScreenInfoCache(vec2 viewport_coord, sampler2D feedback_pass
 	// ba SCREEN_SCALE
 	sample_2d_range = HSM_GetCacheSampleRange(SAMPLE_CELL_SCREEN_SCALE);
 	if (HSM_IsCoordIn2DRange(viewport_coord, sample_2d_range) == 1)
-	{ 
+	{
 		out_color.r = screen_aspect;
 		out_color.ba = screen_scale;
 	}
 
 	// Sample 3, 1
-	// rg TUBE_SCALE 
+	// rg TUBE_SCALE
 	// ba SCREEN_POS_OFFSET
 	sample_2d_range = HSM_GetCacheSampleRange(SAMPLE_CELL_TUBE_SCALE);
 	if (HSM_IsCoordIn2DRange(viewport_coord, sample_2d_range) == 1)
@@ -1437,8 +1437,8 @@ vec4 HSM_GetColorForScreenInfoCache(vec2 viewport_coord, sampler2D feedback_pass
 	}
 
 
-	vec2 sample_coord = vec2(0); 
-	vec4 texture_sample = vec4(0); 
+	vec2 sample_coord = vec2(0);
+	vec4 texture_sample = vec4(0);
 
 	// Check the difference in parameter sum values to see if the cache has changed
 	// Sample 1, 4 Feedback
@@ -1469,7 +1469,7 @@ vec4 HSM_GetColorForScreenInfoCache(vec2 viewport_coord, sampler2D feedback_pass
 	float res_mult_size2_sum_feedback = CROPPED_ROTATED_SIZE_WITH_RES_MULT_FEEDBACK.x + CROPPED_ROTATED_SIZE_WITH_RES_MULT_FEEDBACK.y;
 
 	// Need to check croped sample resolutions of both screens
-	bool cache_changed = res_mult_size_sum != res_mult_size_sum_feedback || 
+	bool cache_changed = res_mult_size_sum != res_mult_size_sum_feedback ||
 						 res_mult_size2_sum != res_mult_size2_sum_feedback ||
 						 abs((parameter_sum) - (parameter_sum_feedback)) > 0.0000001 ? true : false ||
 						 HSM_CACHE_GRAPHICS_ON < 0.5;
@@ -1493,9 +1493,9 @@ void main()
 	{
 		return;
 	}
-	
-   FragColor = HSM_GetColorForScreenInfoCache(vTexCoord, 
-   											  CacheInfoPassFeedback, 
-											  Source, 
-											  ScreenPlacement);
+
+   FragColor = HSM_GetColorForScreenInfoCache(vTexCoord,
+   											  CacheInfoPassFeedback,
+											  Source,
+											  ScreenPlacementImage);
 }

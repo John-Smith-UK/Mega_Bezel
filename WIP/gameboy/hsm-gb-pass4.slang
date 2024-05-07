@@ -42,7 +42,7 @@ layout(push_constant) uniform Push
 
 // Higher values suppress changes in background color directly beneath
 // the foreground to improve image clarity - [0, 1] [DEFAULT: 0.75]
-#pragma parameter bg_smoothing      "          Background Smooth" 0.75 0.0 1.0 0.05
+#pragma parameter bg_smoothing      "          BackgroundImage Smooth" 0.75 0.0 1.0 0.05
 
 
 #pragma parameter GBY_SHADOW_TITLE	"[ SHADOW ]:" 0 0 0.01 0.01
@@ -128,9 +128,9 @@ layout(set = 0, binding = 6) uniform sampler2D PocketColorPalette;
 layout(set = 0, binding = 7) uniform sampler2D LightColorPalette;
 layout(set = 0, binding = 8) uniform sampler2D CustomColorPalette;
 layout(set = 0, binding = 9) uniform sampler2D LCDBackground;
-layout(set = 0, binding = 10) uniform sampler2D Background;
-layout(set = 0, binding = 12) uniform sampler2D TubeColoredGel;
-layout(set = 0, binding = 13) uniform sampler2D TubeHighlight;
+layout(set = 0, binding = 10) uniform sampler2D BackgroundImage;
+layout(set = 0, binding = 12) uniform sampler2D TubeColoredGelImage;
+layout(set = 0, binding = 13) uniform sampler2D TubeStaticReflectionImage;
 
 layout(set = 0, binding = 14) uniform sampler2D CacheInfoPass;
 
@@ -211,6 +211,6 @@ void main()
     FragColor = HSM_Linearize(out_color, DEFAULT_CRT_GAMMA);
 
     // Prep and add output gamma
-	FragColor = HSM_GetPostCrtPreppedColor(FragColor, vTexCoord, screen_curved_coord, LinearizePass, true, TubeColoredGel, TubeHighlight, Background);
+	FragColor = HSM_GetPostCrtPreppedColor(FragColor, vTexCoord, screen_curved_coord, LinearizePass, true, TubeColoredGelImage, TubeStaticReflectionImage, BackgroundImage);
 	// End Addition
 }

@@ -1,4 +1,4 @@
-![Mega_Bezel_Logo|512x256, 75%](upload://6PNkvcMF9Go9Wnk6OJXfYR1opXI.png) 
+![Mega_Bezel_Logo|512x256, 75%](upload://6PNkvcMF9Go9Wnk6OJXfYR1opXI.png)
 
 Mega Bezel is updated to V1.14.0_2023-04-15
 
@@ -21,8 +21,8 @@ Changes:
       * 1 - ON (Explicitly choose to reduce scale for a portrait mode effect)
       * 2 - AUTO (Reduce scale when the viewport resolution is determined to be a vertical aspect ratio)
   * HSM_PORTRAIT_MODE_SCALE_OFFSET added to add a scaling adjustment which only is applied when the HSM_PORTRAIT_MODE_SCALE_REDUCTION is active using ON or AUTO
-  * HSM_BEZEL_LAYER_ORDER_OFFSET_FROM_TUBE 
-    * This allows layers to go between the tube and bezel. 
+  * HSM_BEZEL_LAYER_ORDER_OFFSET_FROM_TUBE
+    * This allows layers to go between the tube and bezel.
     * Reflection will always be applied at the same level as the tube
   * Added Compositition group visibility controls to help see what is in each layer group
   * Added Composition Base Color for testing
@@ -36,31 +36,32 @@ Changes:
           HSM_LED_ADD_MODE_NIGHTLIGHTING_AMOUNT
     * _AMBIENT1_ ranamed to _NIGHTLIGHT1_
     * _AMBIENT2_ ranamed to _NIGHTLIGHT2_
-    * HSM_LIGHT_NIGHTLIGHTING_OPACITY renamed to HSM_SHADE_NIGHTLIGHT_AND_STATIC_SHADING_BLEND 
+    * HSM_LIGHT_NIGHTLIGHTING_OPACITY renamed to HSM_SHADE_NIGHTLIGHT_AND_STATIC_SHADING_BLEND
 
-  * IMPORTANT Many texture names have changed 
-    * FrameTextureImage -> FrameHighlight
-    * IntroImage -> IntroLogo
-    * LEDImage becomes BackgroundLED
+  * IMPORTANT Many texture names have changed
+    * FrameTextureImage -> FrameTextureImage
+    * IntroImage -> IntroImage
+    * LEDImage becomes LEDImage
     * "Image" has been replaced by ""
-    * TubeStaticReflectionImage -> tube_highlight
+    * TubeStaticReflectionImage -> TubeStaticReflectionImage
     * HSM_Duimon_Super_Famicom -> Background_Sfc_Duimon
     * "_3840x2160" -> ""
-  
+
   * Add Noise for dithering tube highlight
 
 ----------------------------------------------------
 --- TODO  ---------------------------------------
 ----------------------------------------------------
 
+  * Create presets for drez-smooth-adv-gdv-ntsc but without ntsc
   * Add White color Spot Light
   * Need to apply BG shadows
   * Add Biasing of light response based on how much the angle is toward or away from the center
     or vice versa
   * Mask / Project shadow using BG depth map
-  * Figure out where to put generated shadows, 
+  * Figure out where to put generated shadows,
     * Static Shadow, Bounce Shadow, Spot Shadow?,
-  * 3 shadows for different directions or other shadows could easily be packed into a user's texture 
+  * 3 shadows for different directions or other shadows could easily be packed into a user's texture
   * Put Spot lighting mask in a channel too?
 
   * Need a gamma/remap for bright color bounce light
@@ -74,9 +75,9 @@ Changes:
 
   * Add Darker Frame Shadow at bottom
   * Shadowing Ideas:
-    * Possible add floor 
+    * Possible add floor
     * User supplied shadow map for static shadows (bounce light can appear in these shadows)
-      * Background should not have these shadows and possibly only omnipresent shadows
+      * BackgroundImage should not have these shadows and possibly only omnipresent shadows
     * User defined height map
     * Tube layer outputs shadow masks for shadows cast by bounce light
       * User supplied image with bounce shadows per channel for different directions
@@ -223,7 +224,7 @@ Scene Dynamic Lighting
   * Gameboy
     * Fix DMG Shader or make new one
     * Fix Low Contrast Issue
-    * Multiple palettes including Custom for Gameboy  
+    * Multiple palettes including Custom for Gameboy
     * Add Gameboy Palettes https://www.deviantart.com/thewolfbunny/gallery/69987002/game-boy-palettes
 
   * Independent Bezel Scaling not the same as non-int scale
@@ -244,20 +245,20 @@ Scene Dynamic Lighting
   * Put Torridgristle LUT back in for blue skys?
 
 Documentation
-  Troubleshooting 
-    New install of retroarch 
-    Turn all overlays off 
+  Troubleshooting
+    New install of retroarch
+    Turn all overlays off
     I have rings, wavy distortions (Moire)
 
 Moire
   The Waves you are seeing are called a Moire effect, it’s the same effect you see through a screen door sometimes.
   It is caused by using a crt shader with scanlines and tube curvature and made worse when the resolution is limited. It is a thorny problem , and sometimes hard to get rid of at 1080, it is much less of a problem at 4k.
   Things which can help/fix the problem
-    Reducing strength of scanlines, 
+    Reducing strength of scanlines,
     Reducing or curvature or setting it to 0 will definitely fix it.
     If you keep using curvature using Integer scale in the shader parameters can sometimes help.
 
-    If making own presets reference from crt-Base presets 
+    If making own presets reference from crt-Base presets
 
 Old Megabezel https://github.com/HyperspaceMadness/shaders_slang/tree/adf6dc3c0f09db11ebf4fbcf85098ac8232acfcc
 
@@ -275,7 +276,7 @@ Old Megabezel https://github.com/HyperspaceMadness/shaders_slang/tree/adf6dc3c0f
     * game_name
     * [shadertype], [gamename], [corename], [contentdirectory]
     * Check textures and use default if not found
-    
+
 
   * Append (Prepend) Shader Preset - to add a shader preset to the beginning of the chain
   * Fix edit shader in UI - Changes are currently lost or need to apply twice
@@ -307,7 +308,7 @@ Old Megabezel https://github.com/HyperspaceMadness/shaders_slang/tree/adf6dc3c0f
       * Would avoid people crashing with internal resolution multiple
 
   * Add "Timer" uniform variable vec4(total-count, count-since-shader-load, oscillator[1,0,1,0,1,...], [unknown/undefined])
-    * Unknown could be frames since direction change, good for rewind effect 
+    * Unknown could be frames since direction change, good for rewind effect
 
   * Check for alias used multiple times appears as semantic error now
   * global.x is semantic error if x not in global
@@ -329,11 +330,11 @@ Snow + Mega Bezel Logo
   *  STANDARD-HD-CORE -             105 FPS
   *  BASIC-BORDER-WITH-REFLECTION - 175 FPS  -  Old Reflect Only Preset 165 FPS
   *  BASIC-BORDER -                 295 FPS  -  Old Screen Scale Preset 370 FPS
-  
+
 *  Performance on HD-CORE E.G. 1920x1080:
-  *  ADVANCED -                     60 FPS 
-  *  ADVANCED-HD-CORE -             70 FPS 
-  *  STANDARD -                     85 FPS 
-  *  STANDARD-HD-CORE -             100 FPS 
-  *  BASIC-BORDER-WITH-REFLECTION - 126 FPS 
-  *  BASIC-BORDER                 - 180 FPS 
+  *  ADVANCED -                     60 FPS
+  *  ADVANCED-HD-CORE -             70 FPS
+  *  STANDARD -                     85 FPS
+  *  STANDARD-HD-CORE -             100 FPS
+  *  BASIC-BORDER-WITH-REFLECTION - 126 FPS
+  *  BASIC-BORDER                 - 180 FPS

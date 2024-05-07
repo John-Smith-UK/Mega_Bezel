@@ -90,8 +90,8 @@ layout(set = 0, binding = 4) uniform sampler2D DeditherPass;
 // layout(set = 0, binding = 5) uniform sampler2D ColorCorrectPass;
 // layout(set = 0, binding = 6) uniform sampler2D LinearizePass;
 layout(set = 0, binding = 7) uniform sampler2D CrtPass;
-layout(set = 0, binding = 8) uniform sampler2D NightLighting;
-layout(set = 0, binding = 9) uniform sampler2D NightLighting2;
+layout(set = 0, binding = 8) uniform sampler2D NightLightingImage;
+layout(set = 0, binding = 9) uniform sampler2D NightLighting2Image;
 
 #ifdef IS_NO_REFLECT_PRESET
 #define MiddlePass CrtPass
@@ -112,7 +112,7 @@ layout(set = 0, binding = 15) uniform sampler2D FinalCompositePassFeedback;
 
 
 // layout(set = 0, binding = 5) uniform sampler2D DitherNoise;
-layout(set = 0, binding = 5) uniform sampler2D Device;
+layout(set = 0, binding = 5) uniform sampler2D DeviceImage;
 
 
 vec3 PrepGraphicsForHDR(vec3 in_color)
@@ -927,14 +927,14 @@ void main()
                                 nightlight1_opacity,
                                 nightlight2_opacity,
                                 HSM_LIGHT_NIGHTLIGHTING_SWAP_IMAGE_MODE, 
-                                NightLighting, 
-                                NightLighting2, 
+                                NightLightingImage, 
+                                NightLighting2Image, 
                                 nightlight1_rgb, 
                                 nightlight2_rgb);
 
     // TODO override nightlight images because they were not coming out before
-    nightlight1_rgb = texture(NightLighting, vTexCoord).rgb;
-    nightlight2_rgb = texture(NightLighting2, vTexCoord).rgb;
+    nightlight1_rgb = texture(NightLightingImage, vTexCoord).rgb;
+    nightlight2_rgb = texture(NightLighting2Image, vTexCoord).rgb;
 
     out_color = vec4(0);
 
